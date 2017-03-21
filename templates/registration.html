@@ -1,0 +1,48 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <title>Register - The Wall</title>
+    <style media="screen">
+        .wrapper {
+            margin: 20px;
+            margin-top: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h2>The Wall - Registration</h2>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p style="color: red">{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form class="col s12" action="/registration" method="post">
+            <div class="input-field col s6">
+                <label for="first_name">First Name</label><br>
+                <input id="first_name" name="first_name" type="text">
+            </div>
+            <div class="input-field col s6">
+                <label for="last_name">Last Name</label><br>
+                <input id="last_name" name="last_name" type="text">
+            </div>
+            <div class="input-field col s6">
+                <label for="email">Email</label><br>
+                <input id="email" name="email" type="text">
+            </div>
+            <div class="input-field col s6">
+                <label for="password">Password</label><br>
+                <input id="password" type="password" name="pass">
+            </div>
+            <div class="input-field col s6">
+                <label for="passconf">Confirm Password</label><br>
+                <input id="password" type="password" name="passconf">
+            </div>
+            <input class="btn waves-effect waves-light" type="submit" value="Register">
+            <a class="waves-effect waves-light btn" href="/">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

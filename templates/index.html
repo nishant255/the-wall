@@ -1,0 +1,46 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <title>The Wall Preview</title>
+    <style media="screen">
+        .wrapper{
+            margin: 10px;
+            margin-top: 0px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>The Wall</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p style="color: red">{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div class="row">
+            <form class="col s12" action="/login" method="post">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="email">Email</label><br>
+                        <input id="email" type="text" name="email">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="password">Password</label><br>
+                        <input id="password" type="password" name="pass">
+                    </div>
+                </div>
+                <input class="btn waves-effect waves-light" type="submit" value="Login">
+                <a class="waves-effect waves-light btn" href="register">Register</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

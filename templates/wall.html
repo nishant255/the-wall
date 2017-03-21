@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{ user['first_name'] }}'s Wall</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+        <style media="screen">
+            .wrapper{
+                margin: 10px;
+            }
+
+            .header {
+                border-bottom: 2px solid black;
+            }
+            .header_left {
+                display: inline-block;
+            }
+
+            .header_right {
+                display: inline-block;
+                float: right;
+                margin-top: 10px;
+            }
+
+            h5 {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 5px;
+            }
+            .message {
+                margin-left: 20px;
+            }
+            .message_show {
+                margin: 0px 20px;
+            }
+            .comment {
+                margin: 0px 80px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="header">
+                <div class="header_left">
+                    <h3>CodingDojo Wall</h3>
+                </div>
+                <div class="header_right">
+                    <h5><i>Welcome <strong>{{ user['first_name'] }}</strong></i></h5>
+                    <a class="waves-effect red btn" href="/logout">Log Out</a>
+                </div>
+            </div>
+            <div class="main_body">
+                <div class="row">
+                    <form class="col s12" action="/post_message" method="post">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="message">Post a Message</label><br>
+                                <textarea id="message"  name="message" class="materialize-textarea"></textarea>
+                                <button class="btn waves-effect blue right" type="submit" name="action">Post a message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p style="color: red">{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                {% for message in messages: %}
+                    <div class="message_show">
+                        <p><strong><u>{{ message['first_name']}} {{ message['last_name'] }}</u></strong> - <i>{{ message['date'] }}</i></p>
+                        <p>{{ message['message']}}</p>
+                        {% if message['users_id'] == session['user_id'] %}
+                        {% if message['current_time_in_sec']-message['created_at_in_sec'] <= 30 %}
+                        <a class="waves-effect black btn" href="/delete_post/{{message['id']}}">Delete</a>
+                        {% endif %}
+                        {% endif %}
+
+                    </div>
+                    <div class="comment">
+                        {% for comment in comments: %}
+                        {% if comment['messages_id'] == message['id']%}
+                        <div class="comment_show">
+                            <p><strong><u>{{ comment['first_name']}} {{ comment['last_name'] }}</u></strong> - <i>{{ comment['date'] }}</i></p>
+                            <p>{{ comment['comments']}}</p>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        <form class="col s12" action="/post_comment" method="post">
+                            <label for="comment">Post a Comment</label><br>
+                            <input type="hidden" name="message_id" value="{{ message['id'] }}">
+                            <textarea id="comment"  name="comment" class="materialize-textarea"></textarea>
+                            <button class="btn waves-effect green right" type="submit" name="action">Post a Comment</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>
