@@ -146,6 +146,7 @@ def login():
         user_query = "SELECT * FROM users WHERE email = :email LIMIT 1"
         query_data = { 'email': email }
         user = mysql.query_db(user_query, query_data)
+
         if bcrypt.check_password_hash(user[0]['password'], password):
             session['login'] = True
             query = "SELECT id FROM users WHERE email = :email"
@@ -245,6 +246,6 @@ def delete_post(message_id):
     return redirect('/wall')
 
 if __name__ == "__main__":
-    application.run(host='0.0.0.0')
+    app.run(host='0.0.0.0')
 
-# app.run(debug=False)
+app.run(debug=False)

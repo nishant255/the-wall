@@ -1,8 +1,6 @@
 """ import the necessary modules """
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
-import os
-# basedir = os.path.abspath(os.path.dirname(__file__))
 # Create a class that will give us an object that we can use to connect to a database
 class MySQLConnection(object):
     def __init__(self, app, db):
@@ -15,8 +13,7 @@ class MySQLConnection(object):
         }
         # this will use the above values to generate the path to connect to your sql database
         DATABASE_URI = "mysql://{}:{}@127.0.0.1:{}/{}".format(config['user'], config['password'], config['port'], config['database'])
-        print os.environ['CLEARDB_DATABASE_URL']
-        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['CLEARDB_DATABASE_URL']
+        app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
         # establish the connection to database
         self.db = SQLAlchemy(app)
