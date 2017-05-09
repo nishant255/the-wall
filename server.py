@@ -244,7 +244,7 @@ def delete_post(message_id):
 
     return redirect('/wall')
 
-# if __name__ == "__main__":
-#     application.run(host='0.0.0.0')
+if __name__ == "__main__":
+    application.run(host='0.0.0.0')
 
-app.run(debug=True)
+# app.run(debug=False)
