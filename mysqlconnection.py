@@ -5,16 +5,23 @@ import os
 # Create a class that will give us an object that we can use to connect to a database
 class MySQLConnection(object):
     def __init__(self, app, db):
+        # config = {
+        #         'host': '192.45.25.2',
+        #         'database': db, # we got db as an argument
+        #         'user': 'root',
+        #         'password': 'root',
+        #         'port': '8889' # change the port to match the port your SQL server is running on
+        # }
         config = {
                 'host': '192.45.25.2',
                 'database': db, # we got db as an argument
-                'user': 'root',
-                'password': 'root',
-                'port': '8889' # change the port to match the port your SQL server is running on
+                'user': 'ba903620cdeccd',
+                'password': 'bb84bc46',
+                'port': 'us-cdbr-iron-east-03.cleardb.net' # change the port to match the port your SQL server is running on
         }
         # this will use the above values to generate the path to connect to your sql database
         DATABASE_URI = "mysql://{}:{}@127.0.0.1:{}/{}".format(config['user'], config['password'], config['port'], config['database'])
-        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['CLEARDB_DATABASE_URL']
+        app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
         print os.environ['CLEARDB_DATABASE_URL']
         print app.config['SQLALCHEMY_DATABASE_URI']
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True

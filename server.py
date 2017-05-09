@@ -9,7 +9,7 @@ EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.secret_key = 'ThisIsLoginKey'
-mysql = MySQLConnector(app,'the_wall')
+mysql = MySQLConnector(app,'heroku_b1575d40456fb38')
 
 # ==============================================================================
 #                                   Render
